@@ -1,0 +1,18 @@
+<resources>
+    <string name="empty" />
+    <string name="app_name">OneHealth</string>
+
+    <string name="login_prompt">Welcome. Please enter your credentials</string>
+    <string name="register_prompt">Let\'s create your account!</string>
+    <string name="login">Login</string>
+    <string name="register">Register</string>
+    <string name="email_placeholder">Email</string>
+    <string name="password_placeholder">Password</string>
+    <string name="confirm_password">Confirm Password</string>
+
+    <string name="provide_input_value">Provide input value</string>
+    <string name="submit">Submit</string>
+
+    <string name="body_weight">Body Weight</string>
+    <string name="body_fat_percentage">Body Fat Percentage</string>
+</resources>

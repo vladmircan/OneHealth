@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "286961408828",
+    "project_id": "onehealth-357d8",
+    "storage_bucket": "onehealth-357d8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:286961408828:android:93173ae6bfe9db92c0dc39",
+        "android_client_info": {
+          "package_name": "com.example.onehealth.data"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "286961408828-9oaru7i25c17885bv15r1d1b0erofddd.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.onehealth",
+            "certificate_hash": "6765749d2824fbc31c288c402323cdba3eafaafe"
+          }
+        },
+        {
+          "client_id": "286961408828-0f36jc36ou3av4jclqch0u9tnmlo5jii.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDShclQG9Q-TEcQb12HBAHI35PHVyXJOTw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "286961408828-0f36jc36ou3av4jclqch0u9tnmlo5jii.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
