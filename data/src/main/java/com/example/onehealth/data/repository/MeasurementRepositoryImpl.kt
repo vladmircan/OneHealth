@@ -3,6 +3,7 @@ package com.example.onehealth.data.repository
 import com.example.onehealth.data.database.MeasurementDao
 import com.example.onehealth.domain.model.local.MeasurementModel
 import com.example.onehealth.domain.model.local.MeasurementType
+import com.example.onehealth.domain.model.local.Period
 import com.example.onehealth.domain.repository.MeasurementData
 import com.example.onehealth.domain.repository.MeasurementRepository
 import com.example.onehealth.domain.repository.UserRepository
@@ -32,16 +33,17 @@ internal class MeasurementRepositoryImpl(
 
     override suspend fun getMeasurementsBetween(
         measurementType: MeasurementType,
-        periodStartTime: Long,
-        periodEndTime: Long,
+        period: Period,
         maxNumberOfMeasurementsToBeRetrieved: Int
-    ) {
-        measurementDao.getMeasurements(
+    ): List<MeasurementModel> {
+        return measurementDao.getMeasurements(
             measurementType = measurementType,
-            periodStartTime = periodStartTime,
-            periodEndTime = periodEndTime,
+            periodStartTime = period.startTime,
+            periodEndTime = period.endTime,
             maxNumberOfMeasurementsToBeRetrieved = maxNumberOfMeasurementsToBeRetrieved
-        )
+        ).map { entity ->
+            entity.toDomainModel()
+        }
     }
 
     override suspend fun saveMeasurement(

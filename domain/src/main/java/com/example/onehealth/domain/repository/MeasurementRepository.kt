@@ -2,6 +2,7 @@ package com.example.onehealth.domain.repository
 
 import com.example.onehealth.domain.model.local.MeasurementModel
 import com.example.onehealth.domain.model.local.MeasurementType
+import com.example.onehealth.domain.model.local.Period
 import kotlinx.coroutines.flow.Flow
 
 interface MeasurementRepository {
@@ -13,10 +14,9 @@ interface MeasurementRepository {
 
     suspend fun getMeasurementsBetween(
         measurementType: MeasurementType,
-        periodStartTime: Long,
-        periodEndTime: Long,
+        period: Period,
         maxNumberOfMeasurementsToBeRetrieved: Int
-    )
+    ): List<MeasurementModel>
 
     suspend fun saveMeasurement(measurement: MeasurementModel)
 }

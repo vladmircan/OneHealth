@@ -37,7 +37,11 @@ fun HomeScreen(
             verticalArrangement = Arrangement.spacedBy(Dimensions.ChartSpacing)
         ) {
             items(items = MeasurementType.values()) { measurementType ->
-                OverviewChart(viewModel.chartDataOfMeasurementType(measurementType))
+                OverviewChart(
+                    dataSource = viewModel.chartDataOfMeasurementType(measurementType),
+                    measurementType = measurementType,
+                    navController = navController
+                )
             }
         }
     }
@@ -54,40 +58,24 @@ fun AddMeasurementButton(
 
 @Composable
 fun OverviewChart(
-    dataSource: Flow<ChartDataModel>
+    dataSource: Flow<ChartDataModel>,
+    measurementType: MeasurementType,
+    navController: NavController
 ) {
-
     val chartData = dataSource.collectAsState(null)
 
     if (chartData.value == null)
         return
+
     AndroidView(
         modifier = Modifier.fillMaxWidth(fraction = 0.9f),
         factory = { context ->
-            // Inside the viewBlock we create a good ol' fashion TextView to match the width and height of its
-            // parent
             ChartCard(context, chartData.value!!) {
-
+                navController.navigate(Screen.ViewMeasurements.route)
             }
-        })
-
-//    val data = listOf(
-//        LineChartData.SeriesData(
-//            points = chartData.value?.values?.flatMapIndexed { index, measurement ->
-//                listOf(
-//                    LineChartData.SeriesData.Point(index, measurement.value.toFloat()),
-//                    LineChartData.SeriesData.Point(index + 1, 34f),
-//                    LineChartData.SeriesData.Point(index + 2, 56f),
-//                    LineChartData.SeriesData.Point(index + 3, 67f)
-//                )
-//            } ?: emptyList(),
-//            color = Purple500,
-//            title = stringResource(chartData.value?.chartLabelId ?: R.string.empty)
-//        ))
-//    LineChart(
-//        chartHeight = 200.dp,
-//        data = LineChartData(
-//            series = data,
-//        )
-//    )
+        },
+        update = { chart ->
+            chart.measurementValues = chartData.value!!.values
+        }
+    )
 }

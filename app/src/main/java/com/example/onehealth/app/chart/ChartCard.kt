@@ -16,6 +16,8 @@ import com.example.onehealth.R
 import com.example.onehealth.app.utils.getDimensionInPixels
 import com.example.onehealth.app.utils.getResolvedColor
 import com.example.onehealth.domain.model.local.ChartDataModel
+import com.example.onehealth.domain.model.local.MeasurementModel
+import kotlin.properties.Delegates
 
 @Suppress("ViewConstructor")
 class ChartCard constructor(
@@ -23,6 +25,11 @@ class ChartCard constructor(
     chartData: ChartDataModel,
     onAction: () -> Unit
 ): FrameLayout(context) {
+
+    private lateinit var chart: ChartView
+    var measurementValues: List<MeasurementModel> by Delegates.observable(emptyList()) { _, _, newValue ->
+        chart.measurementValues = newValue
+    }
 
     init {
         val cardView = CardView(context).apply {
@@ -57,13 +64,15 @@ class ChartCard constructor(
             )
         )
 
+        chart = ChartView(context, chartData.chartLabelId).also { chart ->
+            chart.areMarkersEnabled = false
+            chart.setOnClickListener {
+                onAction()
+            }
+            chart.measurementValues = chartData.values
+        }
         rootLayout.addView(
-            ChartView(context, chartData).also { chart ->
-                chart.areMarkersEnabled = false
-                chart.setOnClickListener {
-                    onAction()
-                }
-            },
+            chart,
             LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 resources.getDimensionPixelSize(R.dimen.chart_height)
