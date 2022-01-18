@@ -14,5 +14,10 @@
     <string name="submit">Submit</string>
 
     <string name="body_weight">Body Weight</string>
+    <string name="body_weight_unit_code">kg</string>
     <string name="body_fat_percentage">Body Fat Percentage</string>
+    <string name="body_fat_percentage_unit_code">%</string>
+
+    <string name="no_recent_measurements">No recent measurements</string>
+    <string name="all_measurements">All Measurements</string>
 </resources>

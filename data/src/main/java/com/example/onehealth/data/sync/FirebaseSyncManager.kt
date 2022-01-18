@@ -61,9 +61,7 @@ internal class FirebaseSyncManager(
     ) = MeasurementEntity(
         id = documentSnapshot.id,
         value = documentSnapshot["value"] as Double,
-        measurementType = runCatching {
-            MeasurementType.valueOf(documentSnapshot["measurementType"] as String)
-        }.getOrDefault(MeasurementType.UNKNOWN),
+        measurementType = MeasurementType.valueOf(documentSnapshot["measurementType"] as String),
         timeStamp = documentSnapshot["timeStamp"] as Long
     )
 }

@@ -74,8 +74,7 @@ dependencies {
 
     implementation(Dependencies.Android.splashScreen)
 
-    implementation(Dependencies.Charts.tehrasCharts)
-    implementation("ma.hu:compose-charts:0.3.4")
+    implementation(Dependencies.Charts.philJayChart)
 
     implementation(Dependencies.Firebase.firestore)
 

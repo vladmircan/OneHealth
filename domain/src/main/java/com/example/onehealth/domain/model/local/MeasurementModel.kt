@@ -8,6 +8,5 @@ data class MeasurementModel(
 
 enum class MeasurementType {
     BODY_WEIGHT,
-    BODY_FAT_PERCENTAGE,
-    UNKNOWN;
+    BODY_FAT_PERCENTAGE
 }
