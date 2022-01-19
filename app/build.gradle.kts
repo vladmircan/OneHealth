@@ -71,6 +71,7 @@ dependencies {
     implementation(Dependencies.Lifecycle.runtime)
     implementation(Dependencies.Lifecycle.commonJava8)
     implementation(Dependencies.Lifecycle.process)
+    implementation(Dependencies.Kotlin.reflection)
 
     implementation(Dependencies.Android.splashScreen)
 

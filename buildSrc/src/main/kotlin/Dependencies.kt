@@ -111,6 +111,8 @@ object Dependencies {
     object Kotlin {
         const val coroutines =
             "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.Other.coroutines}"
+        const val reflection =
+            "org.jetbrains.kotlin:kotlin-reflect:${Versions.Language.kotlinVersion}"
     }
 
     object Android {

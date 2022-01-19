@@ -20,4 +20,6 @@
 
     <string name="no_recent_measurements">No recent measurements</string>
     <string name="all_measurements">All Measurements</string>
+
+    <string name="logout">Logout</string>
 </resources>
