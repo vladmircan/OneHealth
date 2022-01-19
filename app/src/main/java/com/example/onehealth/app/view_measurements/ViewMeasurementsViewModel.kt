@@ -1,5 +1,7 @@
 package com.example.onehealth.app.view_measurements
 
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.example.onehealth.app.core.BaseViewModel
 import com.example.onehealth.app.utils.labelStringId
 import com.example.onehealth.domain.model.local.ChartDataModel
@@ -8,19 +10,17 @@ import com.example.onehealth.domain.model.local.MeasurementType
 import com.example.onehealth.domain.model.local.Period
 import com.example.onehealth.domain.use_case.GetMeasurementsUseCase
 import com.example.onehealth.domain.utils.DateFormats
-import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedInject
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.filterNotNull
 import java.util.Calendar
-import javax.inject.Inject
 
-@HiltViewModel
-class ViewMeasurementsViewModel @Inject constructor(
+class ViewMeasurementsViewModel @AssistedInject constructor(
+    @Assisted private val measurementType: MeasurementType,
     private val getMeasurementsUseCase: GetMeasurementsUseCase
 ): BaseViewModel() {
-
-    var measurementType = MeasurementType.BODY_WEIGHT
 
     private val _chartDataOfTimePeriod = MutableStateFlow<ChartDataModel?>(null)
     val chartDataOfTimePeriod = _chartDataOfTimePeriod.filterNotNull()
@@ -85,9 +85,24 @@ class ViewMeasurementsViewModel @Inject constructor(
         add(Calendar.DAY_OF_WEEK, NUMBER_OF_DAYS_IN_WEEK - 1)
     }
 
+    @dagger.assisted.AssistedFactory
+    interface AssistedFactory {
+        fun create(measurementType: MeasurementType): ViewMeasurementsViewModel
+    }
+
     companion object {
         const val NUMBER_OF_DAYS_IN_WEEK = 7
         const val TIME_WINDOW_CALENDAR_FIELD = Calendar.WEEK_OF_YEAR
         const val DATE_FORMAT = DateFormats.DATE_FORMAT_DD_MM_YYYY
+
+        fun provideFactory(
+            assistedFactory: AssistedFactory,
+            measurementType: MeasurementType
+        ): ViewModelProvider.Factory = object: ViewModelProvider.Factory {
+            @Suppress("UNCHECKED_CAST")
+            override fun <T: ViewModel> create(modelClass: Class<T>): T {
+                return assistedFactory.create(measurementType) as T
+            }
+        }
     }
 }

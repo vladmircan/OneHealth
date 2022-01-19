@@ -18,13 +18,11 @@ import androidx.compose.ui.focus.FocusManager
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
-import androidx.navigation.NavController
 import com.example.onehealth.R
 
 @Composable
 fun AddMeasurementScreen(
-    addMeasurementViewModel: AddMeasurementViewModel,
-    navController: NavController
+    viewModel: AddMeasurementViewModel
 ) {
     Column(
         modifier = Modifier.fillMaxSize(),
@@ -43,7 +41,7 @@ fun AddMeasurementScreen(
         }
 
         SubmitButton {
-            addMeasurementViewModel.saveMeasurement(inputValue.value)
+            viewModel.saveMeasurement(inputValue.value)
         }
     }
 }

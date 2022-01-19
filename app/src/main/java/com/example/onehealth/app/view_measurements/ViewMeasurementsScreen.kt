@@ -15,27 +15,17 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.viewinterop.AndroidView
-import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import com.example.onehealth.R
 import com.example.onehealth.app.chart.ChartView
-import com.example.onehealth.app.core.theme.OneHealthTheme
 import com.example.onehealth.domain.model.local.ChartDataModel
 import com.example.onehealth.domain.model.local.FormattedPeriod
-import com.example.onehealth.domain.model.local.MeasurementType
 import kotlinx.coroutines.flow.Flow
 
 @Composable
 fun ViewMeasurementsScreen(
     viewModel: ViewMeasurementsViewModel,
-    navController: NavController,
-    measurementType: MeasurementType
 ) {
-    viewModel.measurementType = measurementType
-
     Column(
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -44,17 +34,13 @@ fun ViewMeasurementsScreen(
         WeekNavigation(viewModel)
 
         Chart(
-            dataSource = viewModel.chartDataOfTimePeriod,
-            measurementType = measurementType
+            dataSource = viewModel.chartDataOfTimePeriod
         )
     }
 }
 
 @Composable
-fun Chart(
-    dataSource: Flow<ChartDataModel>,
-    measurementType: MeasurementType
-) {
+fun Chart(dataSource: Flow<ChartDataModel>) {
 
     val chartData = dataSource.collectAsState(null)
     if (chartData.value == null)
@@ -102,17 +88,5 @@ fun WeekNavigation(viewModel: ViewMeasurementsViewModel) {
                 contentDescription = "Forward button"
             )
         }
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    OneHealthTheme {
-        ViewMeasurementsScreen(
-            hiltViewModel(),
-            rememberNavController(),
-            MeasurementType.BODY_WEIGHT
-        )
     }
 }

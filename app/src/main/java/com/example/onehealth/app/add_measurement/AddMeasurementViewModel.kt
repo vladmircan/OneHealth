@@ -1,13 +1,15 @@
 package com.example.onehealth.app.add_measurement
 
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.example.onehealth.app.core.BaseViewModel
 import com.example.onehealth.domain.model.local.MeasurementType
 import com.example.onehealth.domain.use_case.SaveMeasurementUseCase
-import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedInject
 
-@HiltViewModel
-class AddMeasurementViewModel @Inject constructor(
+class AddMeasurementViewModel @AssistedInject constructor(
+    @Assisted private val measurementType: MeasurementType,
     private val saveMeasurementUseCase: SaveMeasurementUseCase
 ): BaseViewModel() {
 
@@ -15,8 +17,25 @@ class AddMeasurementViewModel @Inject constructor(
         saveMeasurementUseCase.perform(
             SaveMeasurementUseCase.Params(
                 stringValue = inputValue,
-                measurementType = MeasurementType.BODY_WEIGHT
+                measurementType = measurementType
             )
         )
+    }
+
+    @dagger.assisted.AssistedFactory
+    interface AssistedFactory {
+        fun create(measurementType: MeasurementType): AddMeasurementViewModel
+    }
+
+    companion object {
+        fun provideFactory(
+            assistedFactory: AssistedFactory,
+            measurementType: MeasurementType,
+        ): ViewModelProvider.Factory = object: ViewModelProvider.Factory {
+            @Suppress("UNCHECKED_CAST")
+            override fun <T: ViewModel> create(modelClass: Class<T>): T {
+                return assistedFactory.create(measurementType) as T
+            }
+        }
     }
 }

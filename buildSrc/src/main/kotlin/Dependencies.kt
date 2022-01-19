@@ -11,13 +11,13 @@ object AppVersions {
 object Versions {
     object Language {
         val javaVersion = JavaVersion.VERSION_11
-        const val kotlinVersion = "1.5.21"
-        const val kotlinLevel = "1.5"
+        const val kotlinVersion = "1.6.0"
+        const val kotlinLevel = "1.6"
         const val javaLevel = "11"
     }
 
     object CoreAndroid {
-        const val compose = "1.0.1"
+        const val compose = "1.1.0-rc01"
     }
 
     internal object Other {

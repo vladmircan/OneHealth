@@ -24,6 +24,7 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.onehealth.R
+import com.example.onehealth.app.add_measurement.AddMeasurementViewModel
 import com.example.onehealth.app.auth.AuthViewModel
 import com.example.onehealth.app.core.theme.OneHealthTheme
 import com.example.onehealth.app.main.HomeViewModel
@@ -31,15 +32,32 @@ import com.example.onehealth.app.navigation.AuthScreen
 import com.example.onehealth.app.navigation.MainScreen
 import com.example.onehealth.app.navigation.Screen
 import com.example.onehealth.app.navigation.SetupNavGraph
+import com.example.onehealth.app.view_measurements.ViewMeasurementsViewModel
+import dagger.hilt.EntryPoint
+import dagger.hilt.InstallIn
 import dagger.hilt.android.AndroidEntryPoint
+import dagger.hilt.android.components.ActivityComponent
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
+@ExperimentalMaterialApi
 class OneHealthActivity: ComponentActivity() {
 
     private val homeViewModel: HomeViewModel by viewModels()
     private val authViewModel: AuthViewModel by viewModels()
+
+    @EntryPoint
+    @InstallIn(ActivityComponent::class)
+    interface AddMeasurementViewModelFactoryProvider {
+        fun addMeasurementViewModel(): AddMeasurementViewModel.AssistedFactory
+    }
+
+    @EntryPoint
+    @InstallIn(ActivityComponent::class)
+    interface ViewMeasurementsViewModelFactoryProvider {
+        fun viewMeasurementsViewModel(): ViewMeasurementsViewModel.AssistedFactory
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,8 +79,8 @@ class OneHealthActivity: ComponentActivity() {
             OneHealthTheme {
                 Surface(color = MaterialTheme.colors.background) {
                     OneHealthUiContent(
-                        homeViewModel = homeViewModel,
-                        wasUserLoggedInAtAppStart = wasUserLoggedInAtAppStart
+                        homeViewModel,
+                        wasUserLoggedInAtAppStart
                     )
                 }
             }
@@ -70,6 +88,7 @@ class OneHealthActivity: ComponentActivity() {
     }
 }
 
+@ExperimentalMaterialApi
 @Composable
 fun OneHealthUiContent(
     homeViewModel: HomeViewModel,
@@ -111,12 +130,14 @@ fun OneHealthUiContent(
             ) {
                 SetupNavGraph(
                     navController = navController,
+                    coroutineScope = scope,
                     startDestination = currentScreen.value!!
                 )
             }
         } else {
             SetupNavGraph(
                 navController = navController,
+                coroutineScope = scope,
                 startDestination = when {
                     currentScreen.value == null && !wasUserLoggedInAtAppStart -> Screen.Login
                     currentScreen.value is AuthScreen -> Screen.Login
@@ -203,7 +224,7 @@ fun LogoutButton(onClick: () -> Unit) {
 fun NavController.currentScreenState(): State<Screen?> {
     return this.currentBackStackEntryFlow.map { currentBackStackEntry ->
         Screen::class.sealedSubclasses.mapNotNull { it.objectInstance }.find { screen ->
-            screen.route == currentBackStackEntry.destination.route
+            screen.baseRoute == currentBackStackEntry.destination.route
         }
     }.collectAsState(null)
 }

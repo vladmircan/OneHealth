@@ -1,7 +1,5 @@
 package com.example.onehealth.app.core
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.onehealth.domain.core.AppDispatchers
@@ -10,6 +8,7 @@ import com.example.onehealth.domain.core.UseCase
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
@@ -17,8 +16,8 @@ import javax.inject.Inject
 abstract class BaseViewModel: ViewModel() {
     private val _isLoading = MutableStateFlow(false)
     val isLoading: Flow<Boolean> = _isLoading
-    private val _failure = MutableLiveData<Failure>()
-    val failure: LiveData<Failure> = _failure
+    private val _failure = MutableStateFlow<Failure?>(null)
+    val failure: Flow<Failure> = _failure.filterNotNull()
 
     private var numberOfRunningTasks = 0
     val isIdle
@@ -43,7 +42,7 @@ abstract class BaseViewModel: ViewModel() {
 
     protected fun handleFailure(failure: Failure) {
         Timber.e(failure.exception)
-        this._failure.postValue(failure)
+        this._failure.value = failure
         viewModelScope.launch(AppDispatchers.IO) { exceptionTracker.trackFailure(failure) }
     }
 

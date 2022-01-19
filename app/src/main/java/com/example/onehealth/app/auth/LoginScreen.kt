@@ -31,7 +31,7 @@ fun LoginScreen(
     val focusManager = LocalFocusManager.current
 
     if (isLoggedIn.value == true) {
-        navController.navigate(Screen.Home.route)
+        navController.navigate(Screen.Home.baseRoute)
     }
 
     Column(
@@ -64,7 +64,7 @@ fun LoginScreen(
         }
 
         ToRegisterButton {
-            navController.navigate(Screen.Register.route)
+            navController.navigate(Screen.Register.baseRoute)
         }
     }
 }
