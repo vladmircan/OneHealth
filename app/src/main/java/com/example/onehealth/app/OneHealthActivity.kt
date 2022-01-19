@@ -21,18 +21,23 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.onehealth.R
 import com.example.onehealth.app.add_measurement.AddMeasurementViewModel
 import com.example.onehealth.app.auth.AuthViewModel
+import com.example.onehealth.app.core.BaseViewModel
 import com.example.onehealth.app.core.theme.OneHealthTheme
 import com.example.onehealth.app.main.HomeViewModel
 import com.example.onehealth.app.navigation.AuthScreen
 import com.example.onehealth.app.navigation.MainScreen
 import com.example.onehealth.app.navigation.Screen
 import com.example.onehealth.app.navigation.SetupNavGraph
+import com.example.onehealth.app.utils.toastIt
 import com.example.onehealth.app.view_measurements.ViewMeasurementsViewModel
+import com.example.onehealth.domain.core.AppDispatchers
+import com.example.onehealth.domain.utils.collectInScope
 import dagger.hilt.EntryPoint
 import dagger.hilt.InstallIn
 import dagger.hilt.android.AndroidEntryPoint
@@ -71,6 +76,12 @@ class OneHealthActivity: ComponentActivity() {
                     }
                 }
             }
+        }
+        BaseViewModel.errorMessageId.collectInScope(
+            lifecycleScope,
+            AppDispatchers.MAIN
+        ) { messageId ->
+            toastIt(messageId)
         }
     }
 
