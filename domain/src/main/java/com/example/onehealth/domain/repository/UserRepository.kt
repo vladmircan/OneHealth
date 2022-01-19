@@ -12,4 +12,6 @@ interface UserRepository {
     suspend fun register(userCredentials: UserCredentialsModel): Boolean
 
     suspend fun login(userCredentials: UserCredentialsModel): Boolean
+
+    suspend fun logout()
 }

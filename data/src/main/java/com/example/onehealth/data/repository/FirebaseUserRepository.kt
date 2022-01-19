@@ -39,6 +39,9 @@ internal class FirebaseUserRepository: CoroutineScope, UserRepository {
 
     init {
         firebaseUser = firebaseAuth.currentUser
+        firebaseAuth.addAuthStateListener {
+            firebaseUser = it.currentUser
+        }
     }
 
     override suspend fun register(
@@ -46,10 +49,7 @@ internal class FirebaseUserRepository: CoroutineScope, UserRepository {
     ): Boolean = suspendCoroutine { continuation ->
         firebaseAuth
             .createUserWithEmailAndPassword(userCredentials.email, userCredentials.password)
-            .addOnSuccessListener { authResult ->
-                firebaseUser = authResult.user
-                continuation.resume(true)
-            }
+            .addOnSuccessListener { continuation.resume(true) }
             .addOnCanceledListener { continuation.resume(false) }
             .addOnFailureListener { exception -> continuation.resumeWithException(exception) }
     }
@@ -59,10 +59,7 @@ internal class FirebaseUserRepository: CoroutineScope, UserRepository {
     ): Boolean = suspendCoroutine { continuation ->
         firebaseAuth
             .signInWithEmailAndPassword(userCredentials.email, userCredentials.password)
-            .addOnSuccessListener { authResult ->
-                firebaseUser = authResult.user
-                continuation.resume(true)
-            }
+            .addOnSuccessListener { continuation.resume(true) }
             .addOnCanceledListener { continuation.resume(false) }
             .addOnFailureListener { exception -> continuation.resumeWithException(exception) }
     }
@@ -75,5 +72,9 @@ internal class FirebaseUserRepository: CoroutineScope, UserRepository {
                 email = it.email
             )
         }
+    }
+
+    override suspend fun logout() {
+        firebaseAuth.signOut()
     }
 }

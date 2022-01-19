@@ -15,3 +15,5 @@ abstract class UseCase<in Params: UseCase.Params, out Type> {
     interface Params
     object NoParams: Params
 }
+
+typealias NoResult = Unit
