@@ -1,5 +1,6 @@
 package com.example.onehealth.domain.use_case
 
+import com.example.onehealth.domain.core.Failure
 import com.example.onehealth.domain.core.UseCase
 import com.example.onehealth.domain.model.local.MeasurementModel
 import com.example.onehealth.domain.model.local.MeasurementType
@@ -15,8 +16,13 @@ class SaveMeasurementUseCase @Inject constructor(
 ): UseCase<SaveMeasurementUseCase.Params, Unit>() {
 
     override suspend fun execute(params: Params) {
+        val value = params.stringValue.toDouble()
+        if (value.toInt() !in params.measurementType.valueRange()) {
+            throw Failure.MeasurementFailure.MeasurementValueOutsideRange
+        }
+
         val measurement = MeasurementModel(
-            value = params.stringValue.toDouble(),
+            value = value,
             measurementType = params.measurementType,
             timeStamp = timeProvider.getTimeInMillis()
         )
@@ -27,4 +33,11 @@ class SaveMeasurementUseCase @Inject constructor(
         val stringValue: String,
         val measurementType: MeasurementType
     ): UseCase.Params
+
+    private fun MeasurementType.valueRange(): IntRange {
+        return when (this) {
+            MeasurementType.BODY_WEIGHT -> 0..500
+            MeasurementType.BODY_FAT_PERCENTAGE -> 0..100
+        }
+    }
 }

@@ -3,14 +3,18 @@ package com.example.onehealth.app.add_measurement
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
 import com.example.onehealth.app.core.BaseViewModel
+import com.example.onehealth.domain.core.Failure
 import com.example.onehealth.domain.model.local.MeasurementType
 import com.example.onehealth.domain.use_case.SaveMeasurementUseCase
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
+import kotlinx.coroutines.launch
+import timber.log.Timber
 
 class AddMeasurementViewModel @AssistedInject constructor(
-    @Assisted private val measurementType: MeasurementType,
+    @Assisted val measurementType: MeasurementType,
     private val saveMeasurementUseCase: SaveMeasurementUseCase
 ): BaseViewModel() {
 
@@ -22,8 +26,20 @@ class AddMeasurementViewModel @AssistedInject constructor(
                 stringValue = inputValue,
                 measurementType = measurementType
             ),
-            onSuccess = { wasMeasurementSubmitted.value = true }
+            onSuccess = {
+                wasMeasurementSubmitted.value = true
+            }
         )
+    }
+
+    override fun handleFailure(failure: Failure) {
+        when (failure) {
+            is Failure.MeasurementFailure -> {
+                Timber.e(failure.exception)
+                viewModelScope.launch { _failure.emit(failure) }
+            }
+            else -> super.handleFailure(failure)
+        }
     }
 
     @dagger.assisted.AssistedFactory

@@ -27,7 +27,7 @@ internal class MeasurementRepositoryImpl(
             measurementType,
             numberOfMeasurementsToBeRetrieved
         ).map {
-            it.map { measurementEntity -> measurementEntity.toDomainModel() }
+            it.map { measurementEntity -> measurementEntity.toDomainModel() }.asReversed()
         }
     }
 
@@ -43,7 +43,7 @@ internal class MeasurementRepositoryImpl(
             maxNumberOfMeasurementsToBeRetrieved = maxNumberOfMeasurementsToBeRetrieved
         ).map { entity ->
             entity.toDomainModel()
-        }
+        }.asReversed()
     }
 
     override suspend fun saveMeasurement(

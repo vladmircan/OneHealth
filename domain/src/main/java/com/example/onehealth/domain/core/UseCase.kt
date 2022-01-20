@@ -7,8 +7,8 @@ abstract class UseCase<in Params: UseCase.Params, out Type> {
     open suspend operator fun invoke(params: Params): Result<Type> {
         return try {
             Result.success(execute(params))
-        } catch (exception: Exception) {
-            Result.failure(exception)
+        } catch (throwable: Throwable) {
+            Result.failure(throwable)
         }
     }
 

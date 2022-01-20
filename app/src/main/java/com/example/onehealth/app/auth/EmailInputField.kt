@@ -9,6 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.focus.FocusManager
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
 import com.example.onehealth.R
 
 @Composable
@@ -23,7 +24,10 @@ fun EmailInputField(
         placeholder = { Text(text = stringResource(R.string.email_placeholder)) },
         label = { Text(text = stringResource(R.string.email_placeholder)) },
         onValueChange = onValueChange,
-        keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
+        keyboardOptions = KeyboardOptions(
+            imeAction = ImeAction.Next,
+            keyboardType = KeyboardType.Email
+        ),
         keyboardActions = KeyboardActions(onDone = { focusManager.clearFocus() })
     )
 }

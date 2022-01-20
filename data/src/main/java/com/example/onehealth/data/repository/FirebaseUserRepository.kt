@@ -1,8 +1,9 @@
 package com.example.onehealth.data.repository
 
 import com.example.onehealth.domain.core.AppDispatchers
-import com.example.onehealth.domain.model.local.UserCredentialsModel
+import com.example.onehealth.domain.model.local.UserLoginCredentialsModel
 import com.example.onehealth.domain.model.local.UserModel
+import com.example.onehealth.domain.model.local.UserRegistrationCredentialsModel
 import com.example.onehealth.domain.repository.UserRepository
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
@@ -45,7 +46,7 @@ internal class FirebaseUserRepository: CoroutineScope, UserRepository {
     }
 
     override suspend fun register(
-        userCredentials: UserCredentialsModel
+        userCredentials: UserRegistrationCredentialsModel
     ): Boolean = suspendCoroutine { continuation ->
         firebaseAuth
             .createUserWithEmailAndPassword(userCredentials.email, userCredentials.password)
@@ -55,7 +56,7 @@ internal class FirebaseUserRepository: CoroutineScope, UserRepository {
     }
 
     override suspend fun login(
-        userCredentials: UserCredentialsModel
+        userCredentials: UserLoginCredentialsModel
     ): Boolean = suspendCoroutine { continuation ->
         firebaseAuth
             .signInWithEmailAndPassword(userCredentials.email, userCredentials.password)

@@ -55,9 +55,7 @@ fun LoginScreen(
     ) {
 
         when (val failure = failureState.value) {
-            Failure.InvalidCredentials,
-            Failure.InvalidEmailFormat,
-            Failure.InvalidPasswordLength -> Text(
+            is Failure.AuthFailure -> Text(
                 text = stringResource(failure.userDisplayMessageId!!),
                 color = MaterialTheme.colors.error,
                 textAlign = TextAlign.Center

@@ -26,11 +26,13 @@ val Failure.userDisplayMessageId: Int?
             is Failure.GenericFailure -> R.string.generic_error_toast_message
             Failure.NetworkConnectionFailure -> R.string.network_connection_error_toast_message
             Failure.TimeoutFailure -> R.string.timeout_error_toast_message
-            Failure.InvalidCredentials -> R.string.invalid_credentials
-            Failure.InvalidEmailFormat -> R.string.invalid_email_format
-            Failure.InvalidPasswordLength -> R.string.invalid_password_length
-            Failure.InvalidPasswordFormat -> R.string.invalid_password_format
-            Failure.PasswordsDoNotMatch -> R.string.passwords_do_not_match
+            Failure.MeasurementFailure.NumberFormat -> R.string.number_format_error_toast_message
+            Failure.MeasurementFailure.MeasurementValueOutsideRange -> R.string.measurement_value_out_of_range
+            Failure.AuthFailure.InvalidCredentials -> R.string.invalid_credentials
+            Failure.AuthFailure.InvalidEmailFormat -> R.string.invalid_email_format
+            Failure.AuthFailure.InvalidPasswordLength -> R.string.invalid_password_length
+            Failure.AuthFailure.InvalidPasswordFormat -> R.string.invalid_password_format
+            Failure.AuthFailure.PasswordsDoNotMatch -> R.string.passwords_do_not_match
             else -> null
         }
     }

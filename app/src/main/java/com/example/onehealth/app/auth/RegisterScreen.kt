@@ -50,10 +50,7 @@ fun RegisterScreen(
     ) {
 
         when (val failure = failureState.value) {
-            Failure.InvalidCredentials,
-            Failure.InvalidEmailFormat,
-            Failure.InvalidPasswordLength,
-            Failure.PasswordsDoNotMatch -> Text(
+            is Failure.AuthFailure -> Text(
                 text = stringResource(failure.userDisplayMessageId!!),
                 color = MaterialTheme.colors.error,
                 textAlign = TextAlign.Center

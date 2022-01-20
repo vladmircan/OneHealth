@@ -5,6 +5,7 @@
     <string name="network_connection_error_toast_message">Please check your internet connection.</string>
     <string name="timeout_error_toast_message">The server took too long to respond.</string>
     <string name="generic_error_toast_message">Something went wrong. Please try again. </string>
+    <string name="number_format_error_toast_message">Illegal number format.</string>
 
     <string name="login_prompt">Welcome. Please enter your credentials.</string>
     <string name="invalid_credentials">Invalid credentials.</string>
@@ -19,7 +20,8 @@
     <string name="password_placeholder">Password</string>
     <string name="confirm_password">Confirm Password</string>
 
-    <string name="provide_input_value">Provide input value</string>
+    <string name="please_enter_your">Please enter your %1$s</string>
+    <string name="measurement_value_out_of_range">The measurement value is outside of the acceptable range.</string>
     <string name="submit">Submit</string>
 
     <string name="body_weight">Body Weight</string>

@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface MeasurementDao {
 
-    @Query("Select * from measurements where measurement_type = :measurementType and time_stamp >= :periodStartTime and time_stamp <= :periodEndTime limit :maxNumberOfMeasurementsToBeRetrieved")
+    @Query("Select * from measurements where measurement_type = :measurementType and time_stamp >= :periodStartTime and time_stamp <= :periodEndTime order by time_stamp desc limit :maxNumberOfMeasurementsToBeRetrieved")
     fun getMeasurements(
         measurementType: MeasurementType,
         periodStartTime: Long,
@@ -19,7 +19,7 @@ interface MeasurementDao {
         maxNumberOfMeasurementsToBeRetrieved: Int
     ): List<MeasurementEntity>
 
-    @Query("Select * from measurements where measurement_type = :measurementType limit :numberOfMeasurementsToBeRetrieved")
+    @Query("Select * from measurements where measurement_type = :measurementType order by time_stamp desc limit :numberOfMeasurementsToBeRetrieved")
     fun flowLastMeasurements(
         measurementType: MeasurementType,
         numberOfMeasurementsToBeRetrieved: Int
