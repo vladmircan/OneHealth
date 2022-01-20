@@ -1,5 +1,6 @@
 package com.example.onehealth.app.add_measurement
 
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.onehealth.app.core.BaseViewModel
@@ -13,12 +14,15 @@ class AddMeasurementViewModel @AssistedInject constructor(
     private val saveMeasurementUseCase: SaveMeasurementUseCase
 ): BaseViewModel() {
 
+    val wasMeasurementSubmitted = mutableStateOf(false)
+
     fun saveMeasurement(inputValue: String) {
         saveMeasurementUseCase.perform(
-            SaveMeasurementUseCase.Params(
+            input = SaveMeasurementUseCase.Params(
                 stringValue = inputValue,
                 measurementType = measurementType
-            )
+            ),
+            onSuccess = { wasMeasurementSubmitted.value = true }
         )
     }
 

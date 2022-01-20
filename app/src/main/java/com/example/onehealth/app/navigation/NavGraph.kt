@@ -48,7 +48,8 @@ fun SetupNavGraph(
             AddMeasurementScreen(
                 addMeasurementViewModel(
                     measurementType = MeasurementType.valueOf(measurementTypeName!!)
-                )
+                ),
+                navController
             )
         }
         composable(
