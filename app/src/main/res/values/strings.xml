@@ -6,7 +6,12 @@
     <string name="timeout_error_toast_message">The server took too long to respond.</string>
     <string name="generic_error_toast_message">Something went wrong. Please try again. </string>
 
-    <string name="login_prompt">Welcome. Please enter your credentials</string>
+    <string name="login_prompt">Welcome. Please enter your credentials.</string>
+    <string name="invalid_credentials">Invalid credentials.</string>
+    <string name="invalid_email_format">Invalid email format.</string>
+    <string name="invalid_password_length">Invalid password length.</string>
+    <string name="invalid_password_format">Invalid password format.</string>
+    <string name="passwords_do_not_match">The password and confirmation password must match.</string>
     <string name="register_prompt">Let\'s create your account!</string>
     <string name="login">Login</string>
     <string name="register">Register</string>

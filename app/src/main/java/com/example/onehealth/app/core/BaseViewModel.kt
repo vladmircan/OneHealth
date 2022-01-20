@@ -2,7 +2,8 @@ package com.example.onehealth.app.core
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.onehealth.R
+import com.example.onehealth.app.utils.userDisplayMessageId
+import com.example.onehealth.data.error_handling.fromThrowable
 import com.example.onehealth.domain.core.AppDispatchers
 import com.example.onehealth.domain.core.Failure
 import com.example.onehealth.domain.core.UseCase
@@ -23,6 +24,9 @@ abstract class BaseViewModel: ViewModel() {
     val isIdle
         get() = numberOfRunningTasks == 0
 
+    protected val _failure = MutableSharedFlow<Failure>()
+    val failure: Flow<Failure> = _failure
+
     @Inject
     lateinit var exceptionTracker: com.example.onehealth.domain.error_handling.ExceptionTracker
 
@@ -40,21 +44,14 @@ abstract class BaseViewModel: ViewModel() {
         --numberOfRunningTasks
     }
 
-    protected fun handleFailure(failure: Failure) = viewModelScope.launch(AppDispatchers.IO) {
+    protected open fun handleFailure(failure: Failure) {
         Timber.e(failure.exception)
-        _errorMessageId.emit(failure.userDisplayMessageId)
-        exceptionTracker.trackFailure(failure)
-    }
-
-    private val Failure.userDisplayMessageId: Int?
-        get() {
-            return when (this) {
-                is Failure.GenericFailure -> R.string.generic_error_toast_message
-                Failure.NetworkConnectionFailure -> R.string.network_connection_error_toast_message
-                Failure.TimeoutFailure -> R.string.timeout_error_toast_message
-                else -> null
-            }
+        viewModelScope.launch(AppDispatchers.IO) {
+            _failure.emit(failure)
+            _errorMessageId.emit(failure.userDisplayMessageId)
+            exceptionTracker.trackFailure(failure)
         }
+    }
 
     protected fun <T: UseCase.Params, K: Any?> UseCase<T, K>.perform(
         input: T,

@@ -61,7 +61,9 @@ internal class FirebaseUserRepository: CoroutineScope, UserRepository {
             .signInWithEmailAndPassword(userCredentials.email, userCredentials.password)
             .addOnSuccessListener { continuation.resume(true) }
             .addOnCanceledListener { continuation.resume(false) }
-            .addOnFailureListener { exception -> continuation.resumeWithException(exception) }
+            .addOnFailureListener { exception ->
+                continuation.resumeWithException(exception)
+            }
     }
 
     private fun onFirebaseUserChanged(firebaseUser: FirebaseUser?) {

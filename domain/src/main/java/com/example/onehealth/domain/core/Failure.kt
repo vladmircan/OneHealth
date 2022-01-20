@@ -1,11 +1,12 @@
 package com.example.onehealth.domain.core
 
-import java.io.IOException
-import java.net.SocketException
-import java.net.SocketTimeoutException
-
 sealed class Failure(val exception: Exception) {
     object Unauthorized: Failure(Exception("Unauthorized"))
+    object InvalidCredentials: Failure(Exception("Invalid Credentials"))
+    object InvalidEmailFormat: Failure(Exception("Invalid email format"))
+    object InvalidPasswordLength: Failure(Exception("Invalid password length"))
+    object InvalidPasswordFormat: Failure(Exception("Invalid password format"))
+    object PasswordsDoNotMatch: Failure(Exception("Passwords do not match"))
     object Forbidden: Failure(Exception("Forbidden"))
     object NetworkConnectionFailure: Failure(Exception("NetworkConnectionFailure"))
     object TimeoutFailure: Failure(Exception("TimeoutFailure"))
@@ -19,15 +20,5 @@ sealed class Failure(val exception: Exception) {
 
     override fun hashCode() = exception.hashCode()
 
-    companion object {
-        fun fromThrowable(throwable: Throwable): Failure {
-            return when (throwable) {
-                is SocketException, is SocketTimeoutException -> TimeoutFailure
-                is IOException -> NetworkConnectionFailure
-                is KotlinNullPointerException -> NullResponse
-                is Exception -> GenericFailure(throwable)
-                else -> GenericFailure(RuntimeException(throwable.message, throwable))
-            }
-        }
-    }
+    companion object
 }

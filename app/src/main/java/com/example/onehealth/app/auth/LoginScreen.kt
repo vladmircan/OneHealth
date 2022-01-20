@@ -4,7 +4,9 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Button
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
@@ -16,10 +18,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.onehealth.R
 import com.example.onehealth.app.core.components.GenericProgressIndicator
 import com.example.onehealth.app.navigation.Screen
+import com.example.onehealth.app.utils.userDisplayMessageId
+import com.example.onehealth.domain.core.Failure
 
 @Composable
 fun LoginScreen(
@@ -30,6 +36,7 @@ fun LoginScreen(
     val password: MutableState<String> = rememberSaveable { mutableStateOf("") }
     val isLoggedIn = viewModel.isLoggedIn.collectAsState(false)
     val isLoading = viewModel.isLoading.collectAsState(false)
+    val failureState = viewModel.failure.collectAsState(null)
     val focusManager = LocalFocusManager.current
 
     if (isLoggedIn.value == true) {
@@ -41,12 +48,25 @@ fun LoginScreen(
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .fillMaxHeight(fraction = 0.75f),
+            .fillMaxHeight(fraction = 0.75f)
+            .padding(16.dp),
         verticalArrangement = Arrangement.SpaceEvenly,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
-        Text(stringResource(R.string.login_prompt))
+        when (val failure = failureState.value) {
+            Failure.InvalidCredentials,
+            Failure.InvalidEmailFormat,
+            Failure.InvalidPasswordLength -> Text(
+                text = stringResource(failure.userDisplayMessageId!!),
+                color = MaterialTheme.colors.error,
+                textAlign = TextAlign.Center
+            )
+            else -> Text(
+                text = stringResource(R.string.login_prompt),
+                textAlign = TextAlign.Center
+            )
+        }
 
         EmailInputField(
             value = email.value,
