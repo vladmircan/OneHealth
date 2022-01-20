@@ -8,6 +8,7 @@ import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
@@ -17,6 +18,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.navigation.NavController
 import com.example.onehealth.R
+import com.example.onehealth.app.core.components.GenericProgressIndicator
 
 @Composable
 fun RegisterScreen(
@@ -26,7 +28,10 @@ fun RegisterScreen(
     val email: MutableState<String> = rememberSaveable { mutableStateOf("") }
     val password: MutableState<String> = rememberSaveable { mutableStateOf("") }
     val confirmPassword: MutableState<String> = rememberSaveable { mutableStateOf("") }
+    val isLoading = viewModel.isLoading.collectAsState(false)
     val focusManager = LocalFocusManager.current
+
+    GenericProgressIndicator(isLoadingState = isLoading)
 
     Column(
         modifier = Modifier

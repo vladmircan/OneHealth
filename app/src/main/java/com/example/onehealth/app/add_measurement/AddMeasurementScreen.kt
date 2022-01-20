@@ -10,6 +10,7 @@ import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
@@ -19,11 +20,16 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import com.example.onehealth.R
+import com.example.onehealth.app.core.components.GenericProgressIndicator
 
 @Composable
 fun AddMeasurementScreen(
     viewModel: AddMeasurementViewModel
 ) {
+    val isLoading = viewModel.isLoading.collectAsState(false)
+
+    GenericProgressIndicator(isLoadingState = isLoading)
+
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.SpaceAround,

@@ -18,6 +18,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.navigation.NavController
 import com.example.onehealth.R
+import com.example.onehealth.app.core.components.GenericProgressIndicator
 import com.example.onehealth.app.navigation.Screen
 
 @Composable
@@ -28,11 +29,14 @@ fun LoginScreen(
     val email: MutableState<String> = rememberSaveable { mutableStateOf("") }
     val password: MutableState<String> = rememberSaveable { mutableStateOf("") }
     val isLoggedIn = viewModel.isLoggedIn.collectAsState(false)
+    val isLoading = viewModel.isLoading.collectAsState(false)
     val focusManager = LocalFocusManager.current
 
     if (isLoggedIn.value == true) {
         navController.navigate(Screen.Home.baseRoute)
     }
+
+    GenericProgressIndicator(isLoadingState = isLoading)
 
     Column(
         modifier = Modifier

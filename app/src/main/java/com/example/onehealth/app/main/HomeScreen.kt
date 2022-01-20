@@ -30,6 +30,7 @@ import androidx.compose.ui.viewinterop.AndroidView
 import androidx.navigation.NavController
 import com.example.onehealth.R
 import com.example.onehealth.app.chart.ChartCard
+import com.example.onehealth.app.core.components.GenericProgressIndicator
 import com.example.onehealth.app.core.theme.Dimensions
 import com.example.onehealth.app.navigation.Screen
 import com.example.onehealth.app.utils.labelStringId
@@ -47,6 +48,7 @@ fun HomeScreen(
     coroutineScope: CoroutineScope
 ) {
     val isLoggedIn = viewModel.isLoggedIn.collectAsState()
+    val isLoading = viewModel.isLoading.collectAsState(false)
     val bottomSheetScaffoldState = rememberBottomSheetScaffoldState(
         bottomSheetState = BottomSheetState(BottomSheetValue.Collapsed)
     )
@@ -58,6 +60,9 @@ fun HomeScreen(
 
     if (isLoggedIn.value != true)
         navController.navigate(Screen.Login.baseRoute)
+
+
+    GenericProgressIndicator(isLoadingState = isLoading)
 
     BottomSheetScaffold(
         drawerShape = MaterialTheme.shapes.medium,
