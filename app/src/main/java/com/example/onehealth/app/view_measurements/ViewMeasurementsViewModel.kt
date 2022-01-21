@@ -2,6 +2,7 @@ package com.example.onehealth.app.view_measurements
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.example.onehealth.R
 import com.example.onehealth.app.core.BaseViewModel
 import com.example.onehealth.app.utils.labelStringId
 import com.example.onehealth.domain.model.local.ChartDataModel
@@ -14,7 +15,6 @@ import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.filterNotNull
 import java.util.Calendar
 
 class ViewMeasurementsViewModel @AssistedInject constructor(
@@ -22,8 +22,10 @@ class ViewMeasurementsViewModel @AssistedInject constructor(
     private val getMeasurementsUseCase: GetMeasurementsUseCase
 ): BaseViewModel() {
 
-    private val _chartDataOfTimePeriod = MutableStateFlow<ChartDataModel?>(null)
-    val chartDataOfTimePeriod = _chartDataOfTimePeriod.filterNotNull()
+    private val _chartDataOfTimePeriod = MutableStateFlow(
+        ChartDataModel(R.string.empty, emptyList())
+    )
+    val chartDataOfTimePeriod = _chartDataOfTimePeriod
 
     private val _canNavigateForwardsInTime = MutableStateFlow(false)
     val canNavigateForwardsInTime: Flow<Boolean> = _canNavigateForwardsInTime

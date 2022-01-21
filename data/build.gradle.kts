@@ -54,6 +54,7 @@ dependencies {
     implementation(platform(Dependencies.Firebase.bom))
     implementation(Dependencies.Firebase.auth)
     implementation(Dependencies.Firebase.firestore)
+    implementation(Dependencies.Firebase.crashlytics)
 
     implementation(Dependencies.Database.room)
     implementation(Dependencies.Database.roomRuntime)

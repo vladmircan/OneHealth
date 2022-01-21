@@ -47,12 +47,6 @@ object Versions {
         const val sqlLite = "2.2.0"
 
         const val firestore = "23.0.1"
-        const val storage = "20.0.0"
-        const val pref = "20.0.1"
-        const val storageUi = "4.3.2"
-        const val analytics = "19.0.0"
-        const val crashlytics = "18.1.0"
-        const val firebaseMessaging = "21.0.1"
 
         const val gson = "2.8.6"
         const val glide = "4.12.0"
@@ -157,17 +151,15 @@ object Dependencies {
 
     object Firebase {
         const val bom = "com.google.firebase:firebase-bom:${Versions.Other.firebaseBom}"
+
         const val firestore =
             "com.google.firebase:firebase-firestore-ktx:${Versions.Other.firestore}"
-        const val storage = "com.google.firebase:firebase-storage-ktx:${Versions.Other.storage}"
-        const val performance = "com.google.firebase:firebase-perf:${Versions.Other.pref}"
-        const val analytics =
-            "com.google.firebase:firebase-analytics-ktx:${Versions.Other.analytics}"
-        const val crashlytics =
-            "com.google.firebase:firebase-crashlytics:${Versions.Other.crashlytics}"
+        const val storage = "com.google.firebase:firebase-storage-ktx"
+        const val performance = "com.google.firebase:firebase-perf"
+        const val analytics = "com.google.firebase:firebase-analytics-ktx"
+        const val crashlytics = "com.google.firebase:firebase-crashlytics"
         const val auth = "com.google.firebase:firebase-auth-ktx"
-        const val messaging =
-            "com.google.firebase:firebase-messaging:${Versions.Other.firebaseMessaging}"
+        const val messaging = "com.google.firebase:firebase-messaging"
     }
 
     object Testing {

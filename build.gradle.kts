@@ -9,6 +9,7 @@ buildscript {
         classpath(GradlePlugins.kotlin)
         classpath(GradlePlugins.daggerHilt)
         classpath(GradlePlugins.googleServices)
+        classpath(GradlePlugins.firebaseCrashlytics)
     }
 }
 
