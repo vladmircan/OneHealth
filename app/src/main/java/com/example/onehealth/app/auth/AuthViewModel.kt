@@ -1,6 +1,6 @@
 package com.example.onehealth.app.auth
 
-import androidx.lifecycle.MutableLiveData
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.viewModelScope
 import com.example.onehealth.app.core.BaseViewModel
 import com.example.onehealth.domain.core.Failure
@@ -21,7 +21,7 @@ class AuthViewModel @Inject constructor(
     userRepository: UserRepository
 ): BaseViewModel() {
 
-    val onRegistrationSuccessful = MutableLiveData<Boolean>()
+    val wasRegistrationSuccessful = mutableStateOf(false)
     val isLoggedIn = userRepository.isLoggedIn
 
     fun login(email: String, password: String) {
@@ -42,7 +42,7 @@ class AuthViewModel @Inject constructor(
                 )
             ),
             onSuccess = { wasSignUpSuccessful ->
-                onRegistrationSuccessful.postValue(wasSignUpSuccessful)
+                wasRegistrationSuccessful.value = wasSignUpSuccessful
             }
         )
     }

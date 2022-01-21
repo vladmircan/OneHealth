@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -23,6 +24,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.onehealth.R
 import com.example.onehealth.app.core.components.GenericProgressIndicator
+import com.example.onehealth.app.navigation.Screen
 import com.example.onehealth.app.utils.userDisplayMessageId
 import com.example.onehealth.domain.core.Failure
 
@@ -34,9 +36,13 @@ fun RegisterScreen(
     val email: MutableState<String> = rememberSaveable { mutableStateOf("") }
     val password: MutableState<String> = rememberSaveable { mutableStateOf("") }
     val confirmPassword: MutableState<String> = rememberSaveable { mutableStateOf("") }
+    val wasRegistrationSuccessful = remember { viewModel.wasRegistrationSuccessful }
     val isLoading = viewModel.isLoading.collectAsState(false)
     val failureState = viewModel.failure.collectAsState(null)
     val focusManager = LocalFocusManager.current
+
+    if (wasRegistrationSuccessful.value)
+        navController.navigate(Screen.Home.getRoute())
 
     GenericProgressIndicator(isLoadingState = isLoading)
 
