@@ -88,6 +88,8 @@ dependencies {
     implementation(Dependencies.Navigation.ui)
     implementation(Dependencies.Navigation.compose)
 
+    implementation(Dependencies.Utility.leakCanary)
+
     testImplementation(Dependencies.Testing.junit)
     androidTestImplementation(Dependencies.Testing.androidJunit)
     androidTestImplementation(Dependencies.Testing.androidEspressoCore)
