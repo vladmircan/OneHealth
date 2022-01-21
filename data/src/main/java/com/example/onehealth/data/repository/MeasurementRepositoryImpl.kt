@@ -8,6 +8,7 @@ import com.example.onehealth.domain.repository.MeasurementData
 import com.example.onehealth.domain.repository.MeasurementRepository
 import com.example.onehealth.domain.repository.UserRepository
 import com.google.firebase.firestore.CollectionReference
+import com.google.firebase.firestore.ListenerRegistration
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlin.coroutines.resume
@@ -48,10 +49,17 @@ internal class MeasurementRepositoryImpl(
 
     override suspend fun saveMeasurement(
         measurement: MeasurementModel
-    ) = suspendCoroutine<Unit> { continuation ->
-        collection
-            .add(MeasurementData.fromModel(measurement, userRepository.user!!.userId!!))
-            .addOnSuccessListener { continuation.resume(Unit) }
-            .addOnFailureListener { continuation.resumeWithException(it) }
+    ) {
+        val listener: ListenerRegistration
+        suspendCoroutine<Unit> { continuation ->
+            val data = MeasurementData.fromModel(measurement, userRepository.user!!.userId!!)
+            val newDocumentReference = collection.document()
+            listener = newDocumentReference.addSnapshotListener { document, error ->
+                error?.let(continuation::resumeWithException)
+                document?.reference?.set(data)
+                continuation.resume(Unit)
+            }
+        }
+        listener.remove()
     }
 }
