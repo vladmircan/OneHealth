@@ -5,19 +5,19 @@ import com.example.onehealth.domain.model.local.UserLoginCredentialsModel
 import com.example.onehealth.domain.model.local.UserModel
 import com.example.onehealth.domain.model.local.UserRegistrationCredentialsModel
 import com.example.onehealth.domain.repository.UserRepository
-import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.onEach
 import timber.log.Timber
 import kotlin.coroutines.CoroutineContext
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.suspendCoroutine
-import kotlin.properties.Delegates
 
 internal class FirebaseUserRepository: CoroutineScope, UserRepository {
 
@@ -31,17 +31,23 @@ internal class FirebaseUserRepository: CoroutineScope, UserRepository {
 
     private val firebaseAuth = Firebase.auth
 
-    private var firebaseUser: FirebaseUser? by Delegates.observable(null) { _, _, newValue ->
-        onFirebaseUserChanged(newValue)
+    private var firebaseUser = MutableStateFlow(firebaseAuth.currentUser)
+    override val isLoggedIn = firebaseUser.map { firebaseUser -> firebaseUser != null }
+    override var currentUserId: String? = null
+    override var userFlow = firebaseUser.map {
+        it?.let { firebaseUser ->
+            UserModel(
+                userId = firebaseUser.uid,
+                email = firebaseUser.email
+            )
+        }
+    }.onEach {
+        currentUserId = it?.userId
     }
-    override val isLoggedIn = MutableStateFlow<Boolean?>(null)
-    override var user: UserModel? = null
-        private set
 
     init {
-        firebaseUser = firebaseAuth.currentUser
         firebaseAuth.addAuthStateListener {
-            firebaseUser = it.currentUser
+            firebaseUser.value = it.currentUser
         }
     }
 
@@ -65,16 +71,6 @@ internal class FirebaseUserRepository: CoroutineScope, UserRepository {
             .addOnFailureListener { exception ->
                 continuation.resumeWithException(exception)
             }
-    }
-
-    private fun onFirebaseUserChanged(firebaseUser: FirebaseUser?) {
-        isLoggedIn.value = firebaseUser != null
-        user = firebaseUser?.let {
-            UserModel(
-                userId = it.uid,
-                email = it.email
-            )
-        }
     }
 
     override suspend fun logout() {

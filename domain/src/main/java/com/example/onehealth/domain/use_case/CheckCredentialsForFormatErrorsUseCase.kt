@@ -17,7 +17,7 @@ class CheckCredentialsForFormatErrorsUseCase @Inject constructor():
             !credentials.hasValidEmail -> Failure.AuthFailure.InvalidEmailFormat
             credentials.password.length < MIN_PASSWORD_LENGTH -> Failure.AuthFailure.InvalidPasswordLength
             !credentials.hasValidPassword -> Failure.AuthFailure.InvalidPasswordFormat
-            credentials is UserRegistrationCredentialsModel && credentials.doPasswordsMatch() -> {
+            credentials is UserRegistrationCredentialsModel && !credentials.doPasswordsMatch() -> {
                 Failure.AuthFailure.PasswordsDoNotMatch
             }
             else -> null

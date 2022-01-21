@@ -1,4 +1,4 @@
-package com.example.onehealth.domain.repository
+package com.example.onehealth.domain.model.remote
 
 import com.example.onehealth.domain.core.DomainMappable
 import com.example.onehealth.domain.model.local.MeasurementModel

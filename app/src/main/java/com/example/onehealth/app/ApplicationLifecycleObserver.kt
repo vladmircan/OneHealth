@@ -18,7 +18,7 @@ class ApplicationLifecycleObserver @Inject constructor(
 
     override fun onCreate(owner: LifecycleOwner) {
         super.onCreate(owner)
-        syncManager.sync()
+        syncManager.start()
     }
 
     override fun onDestroy(owner: LifecycleOwner) {

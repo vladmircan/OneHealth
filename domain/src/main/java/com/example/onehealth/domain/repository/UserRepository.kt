@@ -8,7 +8,8 @@ import kotlinx.coroutines.flow.Flow
 interface UserRepository {
 
     val isLoggedIn: Flow<Boolean?>
-    val user: UserModel?
+    val userFlow: Flow<UserModel?>
+    val currentUserId: String?
 
     suspend fun register(userCredentials: UserRegistrationCredentialsModel): Boolean
 

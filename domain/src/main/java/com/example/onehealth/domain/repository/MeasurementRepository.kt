@@ -7,6 +7,8 @@ import kotlinx.coroutines.flow.Flow
 
 interface MeasurementRepository {
 
+    suspend fun getMostRecentMeasurementTime(userId: String): Long?
+
     suspend fun flowLastMeasurements(
         measurementType: MeasurementType,
         numberOfMeasurementsToBeRetrieved: Int

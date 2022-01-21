@@ -15,7 +15,9 @@ data class MeasurementEntity(
     @ColumnInfo(name = "measurement_type")
     val measurementType: MeasurementType,
     @ColumnInfo(name = "time_stamp")
-    val timeStamp: Long
+    val timeStamp: Long,
+    @ColumnInfo(name = "user_id")
+    val userId: String
 ): DomainMappable<MeasurementModel> {
 
     override fun toDomainModel() = MeasurementModel(

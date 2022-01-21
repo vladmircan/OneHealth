@@ -4,7 +4,7 @@ import com.example.onehealth.data.database.MeasurementDao
 import com.example.onehealth.domain.model.local.MeasurementModel
 import com.example.onehealth.domain.model.local.MeasurementType
 import com.example.onehealth.domain.model.local.Period
-import com.example.onehealth.domain.repository.MeasurementData
+import com.example.onehealth.domain.model.remote.MeasurementData
 import com.example.onehealth.domain.repository.MeasurementRepository
 import com.example.onehealth.domain.repository.UserRepository
 import com.google.firebase.firestore.CollectionReference
@@ -20,11 +20,19 @@ internal class MeasurementRepositoryImpl(
     private val collection: CollectionReference,
     private val userRepository: UserRepository
 ): MeasurementRepository {
+
+    override suspend fun getMostRecentMeasurementTime(userId: String): Long? {
+        return kotlin.runCatching {
+            measurementDao.getMostRecentMeasurement(userId).timeStamp
+        }.getOrNull()
+    }
+
     override suspend fun flowLastMeasurements(
         measurementType: MeasurementType,
         numberOfMeasurementsToBeRetrieved: Int
     ): Flow<List<MeasurementModel>> {
         return measurementDao.flowLastMeasurements(
+            userRepository.currentUserId!!,
             measurementType,
             numberOfMeasurementsToBeRetrieved
         ).map {
@@ -38,6 +46,7 @@ internal class MeasurementRepositoryImpl(
         maxNumberOfMeasurementsToBeRetrieved: Int
     ): List<MeasurementModel> {
         return measurementDao.getMeasurements(
+            userId = userRepository.currentUserId!!,
             measurementType = measurementType,
             periodStartTime = period.startTime,
             periodEndTime = period.endTime,
@@ -47,12 +56,10 @@ internal class MeasurementRepositoryImpl(
         }.asReversed()
     }
 
-    override suspend fun saveMeasurement(
-        measurement: MeasurementModel
-    ) {
+    override suspend fun saveMeasurement(measurement: MeasurementModel) {
         val listener: ListenerRegistration
+        val data = MeasurementData.fromModel(measurement, userRepository.currentUserId!!)
         suspendCoroutine<Unit> { continuation ->
-            val data = MeasurementData.fromModel(measurement, userRepository.user!!.userId!!)
             val newDocumentReference = collection.document()
             listener = newDocumentReference.addSnapshotListener { document, error ->
                 error?.let(continuation::resumeWithException)
