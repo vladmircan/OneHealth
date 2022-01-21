@@ -1,3 +1,5 @@
+@file:Suppress("FunctionName")
+
 package com.example.onehealth.app.core.components
 
 import androidx.compose.foundation.layout.Box

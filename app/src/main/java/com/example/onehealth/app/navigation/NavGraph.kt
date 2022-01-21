@@ -1,3 +1,5 @@
+@file:Suppress("FunctionName")
+
 package com.example.onehealth.app.navigation
 
 import android.app.Activity

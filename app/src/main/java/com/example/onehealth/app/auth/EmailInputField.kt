@@ -1,3 +1,5 @@
+@file:Suppress("FunctionName")
+
 package com.example.onehealth.app.auth
 
 import android.util.Patterns

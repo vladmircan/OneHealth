@@ -1,3 +1,5 @@
+@file:Suppress("FunctionName")
+
 package com.example.onehealth.app.add_measurement
 
 import androidx.compose.foundation.layout.Arrangement

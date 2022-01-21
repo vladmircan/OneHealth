@@ -21,9 +21,3 @@ fun Long.formatTimeStamp(format: String, timeZone: TimeZone? = null): String {
     }
     return formatter.format(Date(this))
 }
-
-private val decimalFormat = DecimalFormat("#.##")
-
-fun String?.parseFloat(): Float {
-    return kotlin.runCatching { decimalFormat.parse(this!!)?.toFloat() }.getOrNull() ?: 0f
-}

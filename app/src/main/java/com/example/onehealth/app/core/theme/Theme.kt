@@ -1,3 +1,5 @@
+@file:Suppress("FunctionName")
+
 package com.example.onehealth.app.core.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
@@ -28,7 +30,7 @@ private val LightColorPalette = lightColors(
 )
 
 @Composable
-fun OneHealthTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composable() () -> Unit) {
+fun OneHealthTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composable () -> Unit) {
     val colors = if (darkTheme) {
         DarkColorPalette
     } else {

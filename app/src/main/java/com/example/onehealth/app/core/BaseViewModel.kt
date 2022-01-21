@@ -24,19 +24,20 @@ abstract class BaseViewModel: ViewModel() {
     val isIdle
         get() = numberOfRunningTasks == 0
 
+    @Suppress("ObjectPropertyName")
     protected val _failure = MutableSharedFlow<Failure>()
     val failure: Flow<Failure> = _failure
 
     @Inject
     lateinit var exceptionTracker: com.example.onehealth.domain.error_handling.ExceptionTracker
 
-    protected fun incrementNumberOfRunningTasks() {
+    private fun incrementNumberOfRunningTasks() {
         if (numberOfRunningTasks == 0)
             _isLoading.value = true
         ++numberOfRunningTasks
     }
 
-    protected fun decrementNumberOfRunningTasks() {
+    private fun decrementNumberOfRunningTasks() {
         when (numberOfRunningTasks) {
             0 -> return
             1 -> _isLoading.value = false
@@ -77,6 +78,7 @@ abstract class BaseViewModel: ViewModel() {
     }
 
     companion object {
+        @Suppress("ObjectPropertyName")
         private val _errorMessageId = MutableSharedFlow<Int?>()
         val errorMessageId: Flow<Int> = _errorMessageId.filterNotNull()
     }

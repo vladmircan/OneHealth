@@ -1,11 +1,8 @@
 package com.example.onehealth.domain.core
 
 sealed class Failure(val exception: Exception): Throwable(cause = exception) {
-    object Unauthorized: Failure(Exception("Unauthorized"))
-    object Forbidden: Failure(Exception("Forbidden"))
     object NetworkConnectionFailure: Failure(Exception("NetworkConnectionFailure"))
     object TimeoutFailure: Failure(Exception("TimeoutFailure"))
-    object NullResponse: Failure(Exception("NullResponse"))
 
     sealed interface AuthFailure {
         object InvalidCredentials: Failure(Exception("Invalid Credentials")), AuthFailure

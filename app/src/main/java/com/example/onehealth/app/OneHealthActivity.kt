@@ -1,3 +1,5 @@
+@file:Suppress("FunctionName")
+
 package com.example.onehealth.app
 
 import android.os.Bundle
@@ -26,7 +28,6 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.onehealth.R
 import com.example.onehealth.app.add_measurement.AddMeasurementViewModel
-import com.example.onehealth.app.auth.AuthViewModel
 import com.example.onehealth.app.core.BaseViewModel
 import com.example.onehealth.app.core.theme.OneHealthTheme
 import com.example.onehealth.app.main.HomeViewModel
@@ -50,7 +51,6 @@ import kotlinx.coroutines.launch
 class OneHealthActivity: ComponentActivity() {
 
     private val homeViewModel: HomeViewModel by viewModels()
-    private val authViewModel: AuthViewModel by viewModels()
 
     @EntryPoint
     @InstallIn(ActivityComponent::class)

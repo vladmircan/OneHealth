@@ -34,14 +34,9 @@ object Versions {
         const val core = "1.7.0"
         const val appCompat = "1.4.0"
         const val annotation = "1.2.0"
-        const val exifInterface = "1.3.2"
         const val fragment = "1.3.5"
-        const val constraintLayout = "2.0.4"
         const val material = "1.4.0"
-        const val preference = "1.1.1"
-        const val swipeRefreshLayout = "1.1.0"
         const val workRuntime = "2.7.0"
-        const val gifDrawable = "1.2.23"
         const val playCore = "1.8.1"
         const val lifecycle = "2.4.0"
         const val hiltLifecycle = "1.0.0-alpha03"
@@ -57,27 +52,14 @@ object Versions {
         const val storageUi = "4.3.2"
         const val analytics = "19.0.0"
         const val crashlytics = "18.1.0"
-        const val firebaseAuthUI = "6.2.1"
         const val firebaseMessaging = "21.0.1"
-
-        const val revenueCat = "4.2.1"
-
-        const val lottie = "3.7.0"
-        const val konfetti = "1.2.5"
-        const val giphy = "2.1.0"
-        const val androidBrowserHelper = "2.2.2"
 
         const val gson = "2.8.6"
         const val glide = "4.12.0"
-        const val retrofit = "2.9.0"
-        const val okHttp = "4.7.2"
 
         const val timber = "4.7.1"
-
-        //MEMORY
         const val leakCanary = "2.7"
 
-        //TESTS
         const val junit = "4.13.1"
         const val mockk = "1.10.0"
         const val coreTesting = "1.1.1"
@@ -87,7 +69,6 @@ object Versions {
         const val espresso = "3.3.0"
 
         const val splashScreen = "1.0.0-alpha02"
-
         const val philJayChart = "3.1.0-alpha"
     }
 }
@@ -120,16 +101,9 @@ object Dependencies {
         const val annotation = "androidx.annotation:annotation:${Versions.Other.annotation}"
         const val appCompat = "androidx.appcompat:appcompat:${Versions.Other.appCompat}"
         const val fragment = "androidx.fragment:fragment-ktx:${Versions.Other.fragment}"
-        const val constraintLayout =
-            "androidx.constraintlayout:constraintlayout:${Versions.Other.constraintLayout}"
         const val material = "com.google.android.material:material:${Versions.Other.material}"
-        const val swipeRefreshLayout =
-            "androidx.swiperefreshlayout:swiperefreshlayout:${Versions.Other.swipeRefreshLayout}"
         const val workRuntime = "androidx.work:work-runtime-ktx:${Versions.Other.workRuntime}"
-        const val preference = "androidx.preference:preference-ktx:${Versions.Other.preference}"
         const val pagingRuntime = "androidx.paging:paging-runtime-ktx:${Versions.Other.paging}"
-        const val androidBrowserHelper =
-            "com.google.androidbrowserhelper:androidbrowserhelper:${Versions.Other.androidBrowserHelper}"
         const val splashScreen = "androidx.core:core-splashscreen:${Versions.Other.splashScreen}"
     }
 
@@ -157,7 +131,6 @@ object Dependencies {
         const val runtime = "androidx.lifecycle:lifecycle-runtime-ktx:${Versions.Other.lifecycle}"
         const val viewModel =
             "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.Other.lifecycle}"
-        const val liveData = "androidx.lifecycle:lifecycle-livedata-ktx:${Versions.Other.lifecycle}"
         const val service = "androidx.lifecycle:lifecycle-service:${Versions.Other.lifecycle}"
         const val process = "androidx.lifecycle:lifecycle-process:${Versions.Other.lifecycle}"
         const val commonJava8 =
@@ -188,7 +161,6 @@ object Dependencies {
             "com.google.firebase:firebase-firestore-ktx:${Versions.Other.firestore}"
         const val storage = "com.google.firebase:firebase-storage-ktx:${Versions.Other.storage}"
         const val performance = "com.google.firebase:firebase-perf:${Versions.Other.pref}"
-        const val storageUi = "com.firebaseui:firebase-ui-storage:${Versions.Other.storageUi}"
         const val analytics =
             "com.google.firebase:firebase-analytics-ktx:${Versions.Other.analytics}"
         const val crashlytics =
@@ -219,13 +191,6 @@ object Dependencies {
         const val glideCompiler = "com.github.bumptech.glide:compiler:${Versions.Other.glide}"
     }
 
-    object Networking {
-        const val retrofit = "com.squareup.retrofit2:retrofit:${Versions.Other.retrofit}"
-        const val retrofitGson = "com.squareup.retrofit2:converter-gson:${Versions.Other.retrofit}"
-        const val loggingInterceptor =
-            "com.squareup.okhttp3:logging-interceptor:${Versions.Other.okHttp}"
-    }
-
     object Database {
         const val room = "androidx.room:room-ktx:${Versions.Other.room}"
         const val roomRuntime = "androidx.room:room-runtime:${Versions.Other.room}"
@@ -233,11 +198,6 @@ object Dependencies {
 
         const val sqlCipher = "net.zetetic:android-database-sqlcipher:${Versions.Other.sqlCipher}"
         const val sqlLite = "androidx.sqlite:sqlite-ktx:${Versions.Other.sqlLite}"
-    }
-
-    object Animations {
-        const val lottie = "com.airbnb.android:lottie:${Versions.Other.lottie}"
-        const val konfetti = "nl.dionsegijn:konfetti:${Versions.Other.konfetti}"
     }
 
     object Charts {

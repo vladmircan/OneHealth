@@ -6,7 +6,6 @@ import com.example.onehealth.app.utils.labelStringId
 import com.example.onehealth.domain.core.AppDispatchers
 import com.example.onehealth.domain.core.UseCase
 import com.example.onehealth.domain.model.local.ChartDataModel
-import com.example.onehealth.domain.model.local.MeasurementModel
 import com.example.onehealth.domain.model.local.MeasurementType
 import com.example.onehealth.domain.repository.UserRepository
 import com.example.onehealth.domain.use_case.FlowLastMeasurementsOfMeasurementTypeUseCase
@@ -54,7 +53,7 @@ class HomeViewModel @Inject constructor(
     private suspend fun flowChartDataOfMeasurementType(measurementType: MeasurementType): Flow<ChartDataModel> {
         val params = FlowLastMeasurementsOfMeasurementTypeUseCase.Params(measurementType)
         return flowLastMeasurementsOfMeasurementTypeUseCase(params)
-            .getOrDefault(flow { emit(emptyList<MeasurementModel>()) })
+            .getOrDefault(flow { emit(emptyList()) })
             .map { values -> ChartDataModel(measurementType.labelStringId, values) }
     }
 }

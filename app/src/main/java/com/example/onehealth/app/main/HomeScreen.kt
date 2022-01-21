@@ -1,3 +1,5 @@
+@file:Suppress("FunctionName")
+
 package com.example.onehealth.app.main
 
 import androidx.compose.foundation.layout.Arrangement
@@ -59,7 +61,7 @@ fun HomeScreen(
     }
 
     if (isLoggedIn.value != true)
-        navController.navigate(Screen.Login.baseRoute)
+        navController.navigate(Screen.Login.getRoute())
 
 
     GenericProgressIndicator(isLoadingState = isLoading)
@@ -69,7 +71,7 @@ fun HomeScreen(
         scaffoldState = bottomSheetScaffoldState,
         sheetElevation = 8.dp,
         sheetContent = {
-            ChooseMesurementTypeBottomSheetContent(
+            ChooseMeasurementTypeBottomSheetContent(
                 navController
             )
         },
@@ -138,7 +140,7 @@ fun OverviewChart(
 }
 
 @Composable
-fun ChooseMesurementTypeBottomSheetContent(
+fun ChooseMeasurementTypeBottomSheetContent(
     navController: NavController
 ) {
     Column(

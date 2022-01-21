@@ -12,7 +12,7 @@ internal class ExceptionTrackerImpl(
         if (BuildConfig.DEBUG)
             return
         when (failure) {
-            is Failure.GenericFailure, Failure.TimeoutFailure, Failure.Forbidden -> {
+            is Failure.GenericFailure, Failure.TimeoutFailure -> {
                 providerSpecificExceptionTracker.trackFailure(failure)
             }
             else -> { /*Don't track client side exceptions*/

@@ -61,8 +61,6 @@ dependencies {
     implementation(Dependencies.Database.sqlCipher)
     implementation(Dependencies.Database.sqlLite)
 
-    implementation(Dependencies.Networking.retrofit)
-
     implementation(Dependencies.Utility.timber)
 
     testImplementation(Dependencies.Testing.junit)
