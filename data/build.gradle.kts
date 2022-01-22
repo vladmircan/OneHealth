@@ -23,6 +23,7 @@ android {
 
     buildTypes {
         debug {
+            isMinifyEnabled = false
             ndk.abiFilters += BuildTypes.emulatorAbiFilters
         }
         release {

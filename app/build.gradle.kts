@@ -30,6 +30,7 @@ android {
 
     buildTypes {
         debug {
+            isMinifyEnabled = false
             isDebuggable = true
             ndk.abiFilters += BuildTypes.emulatorAbiFilters
         }
