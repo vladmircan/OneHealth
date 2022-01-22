@@ -23,7 +23,7 @@ object Versions {
     internal object Other {
         const val coroutines = "1.5.2"
         const val androidGradlePlugin = "7.0.4"
-        const val daggerHilt = "2.38.1"
+        const val daggerHilt = "2.40.5"
         const val googleServices = "4.3.8"
         const val firebaseCrashlytics = "2.7.1"
         const val appDistribution = "2.2.0"

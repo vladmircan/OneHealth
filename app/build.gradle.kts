@@ -81,6 +81,7 @@ dependencies {
     implementation(Dependencies.Charts.philJayChart)
 
     implementation(Dependencies.Firebase.firestore)
+    implementation(Dependencies.Firebase.crashlytics)
 
     implementation(Dependencies.DependencyInjection.hilt)
     implementation(Dependencies.DependencyInjection.hiltNavigationCompose)

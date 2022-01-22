@@ -1,4 +1,4 @@
-package com.example.onehealth.data.error_handling
+package com.example.onehealth.app.error_handling
 
 import com.example.onehealth.domain.error_handling.ExceptionTracker
 import dagger.Module
