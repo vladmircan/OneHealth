@@ -98,4 +98,10 @@ dependencies {
     androidTestImplementation(Dependencies.Testing.androidJunit)
     androidTestImplementation(Dependencies.Testing.androidEspressoCore)
     androidTestImplementation(Dependencies.Testing.junitCompose)
+    testImplementation(Dependencies.Testing.hiltTest)
+    androidTestImplementation(Dependencies.Testing.hiltTest)
+    kaptTest(Dependencies.DependencyInjection.hiltCompiler)
+    kaptAndroidTest(Dependencies.DependencyInjection.hiltCompiler)
+    testImplementation(Dependencies.Testing.assertionLibrary)
+    androidTestImplementation(Dependencies.Testing.assertionLibrary)
 }

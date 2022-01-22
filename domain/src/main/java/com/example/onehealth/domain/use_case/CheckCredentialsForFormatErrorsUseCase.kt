@@ -4,6 +4,7 @@ import com.example.onehealth.domain.core.Failure
 import com.example.onehealth.domain.core.UseCase
 import com.example.onehealth.domain.model.local.UserCredentialsModel
 import com.example.onehealth.domain.model.local.UserRegistrationCredentialsModel
+import com.example.onehealth.domain.utils.Constants
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -15,7 +16,7 @@ class CheckCredentialsForFormatErrorsUseCase @Inject constructor():
         val credentials = params.credentials
         return when {
             !credentials.hasValidEmail -> Failure.AuthFailure.InvalidEmailFormat
-            credentials.password.length < MIN_PASSWORD_LENGTH -> Failure.AuthFailure.InvalidPasswordLength
+            credentials.password.length < Constants.MIN_PASSWORD_LENGTH -> Failure.AuthFailure.InvalidPasswordLength
             !credentials.hasValidPassword -> Failure.AuthFailure.InvalidPasswordFormat
             credentials is UserRegistrationCredentialsModel && !credentials.doPasswordsMatch() -> {
                 Failure.AuthFailure.PasswordsDoNotMatch
@@ -28,13 +29,12 @@ class CheckCredentialsForFormatErrorsUseCase @Inject constructor():
         get() = email.isNotBlank() && EMAIL_ADDRESS_REGEX.matches(email)
 
     private val UserCredentialsModel.hasValidPassword: Boolean
-        get() = password.length >= MIN_PASSWORD_LENGTH
+        get() = true
 
     @JvmInline
     value class Params(val credentials: UserCredentialsModel): UseCase.Params
 
     companion object {
-        const val MIN_PASSWORD_LENGTH = 8
         val EMAIL_ADDRESS_REGEX = Regex(
             pattern = "[a-zA-Z0-9\\+\\.\\_\\%\\-\\+]{1,256}" +
                 "\\@" +

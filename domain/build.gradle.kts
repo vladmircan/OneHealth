@@ -11,4 +11,6 @@ java {
 dependencies {
     implementation(Dependencies.Kotlin.coroutines)
     implementation(Dependencies.DependencyInjection.javaInject)
+    testImplementation(Dependencies.Testing.junit)
+    testImplementation(Dependencies.Testing.assertionLibrary)
 }

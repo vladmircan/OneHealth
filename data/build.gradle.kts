@@ -13,6 +13,7 @@ android {
         minSdk = AppVersions.minSdk
         targetSdk = AppVersions.targetSdk
 
+        ndk.abiFilters += BuildTypes.defaultAbiFilters
         testInstrumentationRunner = Dependencies.Testing.testInstrumentationRunner
     }
 
@@ -65,4 +66,11 @@ dependencies {
 
     testImplementation(Dependencies.Testing.junit)
     androidTestImplementation(Dependencies.Testing.androidJunit)
+    androidTestImplementation(Dependencies.Testing.hiltTest)
+    androidTestImplementation(Dependencies.Testing.androidJunitRunner)
+    kaptTest(Dependencies.DependencyInjection.hiltCompiler)
+    kaptAndroidTest(Dependencies.DependencyInjection.hiltCompiler)
+    testImplementation(Dependencies.Testing.hiltTest)
+    testImplementation(Dependencies.Testing.assertionLibrary)
+    androidTestImplementation(Dependencies.Testing.assertionLibrary)
 }

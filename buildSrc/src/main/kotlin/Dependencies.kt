@@ -20,6 +20,18 @@ object Versions {
         const val compose = "1.1.0-rc01"
     }
 
+    internal object Testing {
+        const val junit = "4.13.1"
+        const val mockk = "1.10.0"
+        const val coreTesting = "1.1.1"
+        const val coroutineTest = "1.3.9"
+        const val androidJunit = "1.1.2"
+        const val androidJunitRunner = "1.4.0"
+        const val androidTestCore = "1.3.0"
+        const val espresso = "3.3.0"
+        const val strikt = "0.33.0"
+    }
+
     internal object Other {
         const val coroutines = "1.5.2"
         const val androidGradlePlugin = "7.0.4"
@@ -53,14 +65,6 @@ object Versions {
 
         const val timber = "4.7.1"
         const val leakCanary = "2.7"
-
-        const val junit = "4.13.1"
-        const val mockk = "1.10.0"
-        const val coreTesting = "1.1.1"
-        const val coroutineTest = "1.3.9"
-        const val androidJunit = "1.1.2"
-        const val androidTestCore = "1.3.0"
-        const val espresso = "3.3.0"
 
         const val splashScreen = "1.0.0-alpha02"
         const val philJayChart = "3.1.0-alpha"
@@ -163,19 +167,21 @@ object Dependencies {
     }
 
     object Testing {
-        const val junit = "junit:junit:${Versions.Other.junit}"
+        const val junit = "junit:junit:${Versions.Testing.junit}"
         const val junitCompose =
             "androidx.compose.ui:ui-test-junit4:${Versions.CoreAndroid.compose}"
-        const val mockk = "io.mockk:mockk:${Versions.Other.mockk}"
-        const val androidCoreTest = "android.arch.core:core-testing:${Versions.Other.coreTesting}"
+        const val mockk = "io.mockk:mockk:${Versions.Testing.mockk}"
+        const val androidCoreTest = "android.arch.core:core-testing:${Versions.Testing.coreTesting}"
         const val coroutineTest =
-            "org.jetbrains.kotlinx:kotlinx-coroutines-test:${Versions.Other.coroutineTest}"
-        const val androidJunit = "androidx.test.ext:junit:${Versions.Other.androidJunit}"
-        const val androidTestCore = "androidx.test:core:${Versions.Other.androidTestCore}"
+            "org.jetbrains.kotlinx:kotlinx-coroutines-test:${Versions.Testing.coroutineTest}"
+        const val androidJunit = "androidx.test.ext:junit:${Versions.Testing.androidJunit}"
+        const val androidTestCore = "androidx.test:core:${Versions.Testing.androidTestCore}"
         const val androidEspressoCore =
-            "androidx.test.espresso:espresso-core:${Versions.Other.espresso}"
-
-        const val testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+            "androidx.test.espresso:espresso-core:${Versions.Testing.espresso}"
+        const val androidJunitRunner = "androidx.test:runner:${Versions.Testing.androidJunitRunner}"
+        const val testInstrumentationRunner = "com.example.onehealth.data.HiltTestRunner"
+        const val hiltTest = "com.google.dagger:hilt-android-testing:${Versions.Other.daggerHilt}"
+        const val assertionLibrary = "io.strikt:strikt-core:${Versions.Testing.strikt}"
     }
 
     object ImageLoading {
