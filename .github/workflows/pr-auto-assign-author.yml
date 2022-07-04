@@ -10,4 +10,4 @@ jobs:
     steps:
       - uses: toshimaru/auto-author-assign@v1.1.0
         with:
-          repo-token: "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"
+          repo-token: "${{ secrets.GITHUB_TOKEN }}"
