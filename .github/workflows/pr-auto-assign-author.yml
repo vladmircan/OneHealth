@@ -8,6 +8,6 @@ jobs:
   assign-author:
     runs-on: ubuntu-latest
     steps:
-      - uses: toshimaru/auto-author-assign@v1.1.0
+      - uses: toshimaru/auto-author-assign@2e0fdb731c6c01a37edd61fff1dee0e34d2f6961
         with:
           repo-token: "${{ secrets.GITHUB_TOKEN }}"
