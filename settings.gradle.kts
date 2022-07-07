@@ -1,6 +1,6 @@
 rootProject.name = "OneHealth"
 include(":app")
 include(":data")
-include(":domain")
+include(":")
 include(":domain")
 include(":domain")
